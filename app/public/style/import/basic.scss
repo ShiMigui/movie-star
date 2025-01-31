@@ -1,0 +1,31 @@
+body { background-color: $color-black; }
+.box-content { padding: $el-margin; }
+header ~ main, main ~ footer { margin-top: 50px; }
+footer { padding: 15px; }
+
+* {
+    font-family: 'Roboto', sans-serif;
+    box-sizing: border-box;
+    color: white;
+    padding: 0;
+    margin: 0;
+}
+
+.hidden { display: none; }
+
+.fill { width: 100%; }
+
+.txt-center { text-align: center; }
+
+@mixin title-font($size) {
+    font-size: $size;
+    font-weight: 900;
+    white-space: nowrap;
+}
+h1 { @include title-font(2em); }
+h2 { @include title-font(1.75em); }
+h3 { @include title-font(1.5em); }
+h4 { @include title-font(1.25em); }
+h5 { @include title-font(1em); }
+h6 { font-size: .8em; }
+p { line-height: 1.5; }

@@ -1,0 +1,33 @@
+input, textarea, select {
+    &, select option {
+        @include el-mixin();
+        background-color: $color-black3;
+        border: none;
+        width: 100%;
+    }
+
+    &:focus { outline: none; }
+    &:-webkit-autofill { transition-duration: 99999s; }
+
+    &:focus { @include box-shadow-border(1px, $color-primary); }
+}
+
+.element-joiner {
+    transition-duration: $el-duration;
+    background-color: $color-black3;
+    border-radius: $el-radius;
+    align-items: center;
+    display: flex;
+
+    &>* {
+        &:not(:last-child) {
+            border-bottom-right-radius: 0;
+            border-top-right-radius: 0;
+        }
+
+        &:not(:first-child) {
+            border-bottom-left-radius: 0;
+            border-top-left-radius: 0;
+        }
+    }
+}

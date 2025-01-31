@@ -1,0 +1,45 @@
+header {
+    border-bottom: 1px solid $color-primary;
+    background-color: $color-black2;
+    padding-inline: $el-padding;
+
+    &>.limiter-lg {
+        padding-block: $el-padding;
+        position: relative;
+        min-height: 80px;
+
+        img { margin-right: 10px; }
+
+        a {
+            text-decoration: none;
+            display: flex;
+
+            &.logo img {
+                max-width: 40px;
+                width: 100%;
+            }
+
+            &:not(header>.limiter-lg> a) { padding: $el-padding; }
+        }
+
+        li {
+            list-style-type: none;
+            cursor: pointer;
+            width: 100%;
+
+            .material-symbols-outlined { margin-left: 10px; }
+        }
+
+        #dropdown {
+            border-bottom-left-radius: $el-radius;
+            border-bottom-right-radius: $el-radius;
+            border: 1px solid $color-primary;
+            background-color: $color-black2;
+            animation: unhide $el-duration;
+            position: absolute;
+            border-top: none;
+            top: 100%;
+            right: 0;
+        }
+    }
+}

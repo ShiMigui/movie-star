@@ -1,0 +1,15 @@
+@mixin el-mixin() {
+    transition-duration: $el-duration;
+    border-radius: $el-radius;
+    padding: $el-padding;
+    font-size: 0.9em;
+}
+
+@keyframes unhide {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+@mixin box-shadow-border($size, $color) {
+    box-shadow: 0 0 0 $size inset $color;
+}

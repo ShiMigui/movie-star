@@ -1,0 +1,16 @@
+button, .btn{
+    @include el-mixin();
+    &:hover { filter: brightness(.8); }
+    background-color: $color-primary; 
+    cursor: pointer;
+    border: none;
+    &.b-second { @include box-shadow-border(1px, $color-primary); }
+    
+    &.b-second, &.b-third {
+        color: $color-primary;
+        background-color: transparent;
+
+        &:hover { background-color: darken($color: $color-primary, $amount: 45%); }
+    }
+    &.material-symbols-outlined { font-size: 1em; }
+}

@@ -1,0 +1,44 @@
+$color-black: #000000;
+$color-black2: lighten($color-black, 4%);
+$color-black3: lighten($color-black, 8%);
+
+$default-limiter-size: 1200px;
+
+$color-error: #FF4040;
+$color-success: #2BA84A;
+$color-warning: #ECA72C;
+
+$color-primary: #007BFF;
+
+$el-padding: .75em;
+$el-duration: .3s;
+$el-margin: 20px;
+$el-radius: 5px;
+
+@import "./import/basic.scss";
+@import "./import/layout/flex.scss";
+@import "./import/layout/space.scss";
+@import "./import/component/mixin.scss";
+@import "./import/component/alert.scss";
+@import "./import/component/input.scss";
+@import "./import/component/button.scss";
+@import "./import/component/header.scss";
+@import "./import/component/limiter.scss";
+@import "./import/component/container-img.scss";
+
+#password-requirements {
+    & > *:not(:last-child) { margin-bottom: calc($el-margin / 2); }
+
+    @include el-mixin;
+
+    & .requirement {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        
+        &, & span { color: $color-success; }
+        &.error, &.error span { color: $color-error; }
+    }
+
+    background-color: $color-black3;
+}

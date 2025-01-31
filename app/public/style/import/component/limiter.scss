@@ -1,0 +1,9 @@
+@mixin limiter($size: $default-limiter-size) {
+    width: 100%;
+    max-width: $size;
+    margin-inline: auto;
+}
+
+.limiter-lg { @include limiter($default-limiter-size); }
+.limiter-md { @include limiter(calc($default-limiter-size / 3 * 2)); }
+.limiter-sm { @include limiter(calc($default-limiter-size / 3)); }

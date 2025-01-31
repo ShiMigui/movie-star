@@ -1,0 +1,13 @@
+@mixin alert($color) {
+    background-color: $color-black3;
+    border-left: 6px solid $color;
+    border-radius: $el-radius;
+    padding: $el-padding;
+    color: white;
+}
+
+.alert {
+    &-error { @include alert($color-error); }
+    &-success { @include alert($color-success); }
+    &-warning { @include alert($color-warning); }
+}

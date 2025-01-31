@@ -38,12 +38,14 @@ class Auth {
 
     private static function setLogin(User $user): void {
         $_SESSION['login'] = [
-            'cd' => $user->getCd() ?? throw new Exception('Cd não pode ser nulo.'),
-            'name' => $user->getToken() ?? throw new Exception('Token não pode ser nulo.'),
-            'token' => $user->getUserName() ?? throw new Exception('Nome não pode ser nulo.'),
+            'cd' => $user->getCd() ?? throw new Exception('Código de usuário não pode ser nulo.'),
+            'name' => $user->getUserName() ?? throw new Exception('Nome não pode ser nulo.'),
+            'token' => $user->getToken() ?? throw new Exception('Token não pode ser nulo.'),
             'image' => $user->getImagePath(),
         ];
     }
 
-    private static function loginInSession(): ?array { return $_SESSION['login'] ?? null; }
+    private static function loginInSession(): ?array {
+        return $_SESSION['login'] ?? null;
+    }
 }

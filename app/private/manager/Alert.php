@@ -11,7 +11,7 @@ class Alert {
     }
 
     public static function load(): string {
-        if (!$alert = $_SESSION['alert'] ?? false) {
+        if ($alert = $_SESSION['alert'] ?? false) {
             $r = self::gen($alert['msg'], AlertType::from($alert['type']));
             unset($_SESSION['alert']);
         }

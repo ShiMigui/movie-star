@@ -35,14 +35,18 @@ try {
             if (empty($userName) || empty($lastName) || empty($email)) throw new Exception('Todos os campos devem ser preenchidos.');
 
             $file = $_FILES['image'] ?? null;
-            $icImage = !!$file['tmp_name'];
-            if ($icImage) save_image($file, User::imagePath($cd));
+            $icImage = false;
+            if ($file && $file['tmp_name'] && $file['error'] === UPLOAD_ERR_OK) {
+                save_image($file, User::imagePath($cd));
+                $icImage = true;
+            }
             #endregion
-            $user = new User($cd, $icImage, $email, null, $userName, $lastName, null, $description);
+            $user = new User($cd, $icImage, $email, $login['token'], $userName, $lastName, null, $description);
 
             if (!$userDAO->updateProfile($user)) throw new Exception('Não foi possível salvar as alterações.');
-            $user->setToken($login['token']);
             Auth::login($user, 'Alterações salvas com sucesso.');
+            $login = Auth::isLogged();
+            $image = $login['image'];
         } else {
             #region Sanitizing and validating input
             $password = trim(filter_input(INPUT_POST, 'password') ?? '');
@@ -67,6 +71,7 @@ require_once __PRIVATE . 'template/header.php';
     <?= Alert::loadIf(!$isPost) ?>
     <form action="editProfile.php" method="post" class="form-box c-content fill" enctype="multipart/form-data">
         <h2 class="txt-center">Alterar Perfil</h2>
+        <?= Alert::loadIf($isPost && $isEdit) ?>
         <input type="hidden" name="type" value="edit">
         <div class="r-fx-gp ai-end">
             <div class="user-img-lg">
@@ -81,14 +86,13 @@ require_once __PRIVATE . 'template/header.php';
         </div>
         <label for="description">Descrição</label><textarea name="description" id="description" rows="10"><?= $description ?></textarea>
         <div class="r-fx-gp jc-center"><button type="reset" class="b-second">Cancelar</button><button type="submit" class="btn">Salvar</button></div>
-        <?= Alert::loadIf($isPost && $isEdit) ?>
     </form>
 
     <form action="editProfile.php" method="post" class="form-box c-content limiter-sm">
         <h2 class="txt-center">Alterar Senha</h2>
+        <?= Alert::loadIf($isPost && !$isEdit) ?>
         <?php require_once __PRIVATE . 'template/passwordConfirm.php'; ?>
         <div class="r-fx-gp jc-center"><button type="reset" class="b-second">Cancelar</button><button type="submit" class="btn">Salvar</button></div>
-        <?= Alert::loadIf($isPost && !$isEdit) ?>
     </form>
 </main>
 <script src="script/component/previewImage.js" type="module"></script>

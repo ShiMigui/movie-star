@@ -46,7 +46,7 @@ class userDAO {
             'UPDATE users SET nm_user_name=?,nm_last_name=?,ds_user=?,ic_image=? WHERE cd_user=?',
             [$userName, $lastName, $ds, $icImage, $cd]
         );
-        return $stmt->execute() && $stmt->affected_rows > 0;
+        return $stmt->execute();
     }
     public function save(User $user): bool {
         #region user data

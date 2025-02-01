@@ -15,6 +15,7 @@ $lastName = '';
 $email = '';
 
 try {
+    $userDAO = userDAO::getInstance();
     if (!$isEdit) { // Loading user from database
         if (!$user = $userDAO->findById($cd, UserAtt::PROFILE)) throw new Exception('Usuário não encontrado.');
         $user->setCd($cd);
@@ -32,18 +33,16 @@ try {
             $description = trim(filter_input(INPUT_POST, 'description') ?? '');
             $email = trim(filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL) ?? '');
             if (empty($userName) || empty($lastName) || empty($email)) throw new Exception('Todos os campos devem ser preenchidos.');
-            #endregion
-            #region Updating user data
-            #region Image upload
-            if ($file = $_FILES['image'] ?? null) save_image($file, User::imagePath($cd));
-            $icImage = $file !== null;
+
+            $file = $_FILES['image'] ?? null;
+            $icImage = !!$file['tmp_name'];
+            if ($icImage) save_image($file, User::imagePath($cd));
             #endregion
             $user = new User($cd, $icImage, $email, null, $userName, $lastName, null, $description);
 
-            if (!$userDAO->update($user)) throw new Exception('Não foi possível salvar as alterações.');
+            if (!$userDAO->updateProfile($user)) throw new Exception('Não foi possível salvar as alterações.');
             $user->setToken($login['token']);
             Auth::login($user, 'Alterações salvas com sucesso.');
-            #endregion
         } else {
             #region Sanitizing and validating input
             $password = trim(filter_input(INPUT_POST, 'password') ?? '');

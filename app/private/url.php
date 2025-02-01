@@ -13,5 +13,4 @@ require_once __PRIVATE . 'manager/Alert.php';
 //Cache.php
 require_once __PRIVATE . 'manager/Auth.php';
 
-$userDAO = userDAO::getInstance();
 $login = Auth::isLogged();

@@ -23,7 +23,7 @@ class Auth {
     }
 
     public static function isLogged(): false|array {
-        global $userDAO;
+        $userDAO = userDAO::getInstance();
         if ($login = self::loginInSession()) {
             $cd = $login['cd'];
             $token = $login['token'];

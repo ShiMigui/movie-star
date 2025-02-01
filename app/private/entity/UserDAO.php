@@ -40,11 +40,13 @@ class userDAO {
         $ds = $user->getDescription();
         $cd = $user->getCd();
         #endregion
-        return $this->execQuery(
-            'ssisi',
-            'UPDATE users SET nm_user_name=?,nm_last_name=?,ic_image=?,ds_user=? WHERE cd_user=?',
-            [$userName, $lastName, $icImage, $ds, $cd]
+        #region Updating user profile
+        $stmt = $this->prepareQuery(
+           'sssii',
+            'UPDATE users SET nm_user_name=?,nm_last_name=?,ds_user=?,ic_image=? WHERE cd_user=?',
+            [$userName, $lastName, $ds, $icImage, $cd]
         );
+        return $stmt->execute() && $stmt->affected_rows > 0;
     }
     public function save(User $user): bool {
         #region user data

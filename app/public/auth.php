@@ -13,6 +13,7 @@ $isPost = $_SERVER['REQUEST_METHOD'] === 'POST';
 $isRegister = isset($_POST['type']) && $_POST['type'] === 'register';
 try {
     if ($isPost) {
+        $userDAO = userDAO::getInstance();
         #region Email and password data input
         $email = trim(filter_input(INPUT_POST, 'email') ?? '');
         $password = trim(filter_input(INPUT_POST, 'password') ?? '');
